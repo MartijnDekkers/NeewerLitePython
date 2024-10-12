@@ -18,9 +18,10 @@ from homeassistant.components.light import (
 	COLOR_MODE_WHITE,
 	SUPPORT_TRANSITION,
 	LightEntity,
+	PLATFORM_SCHEMA
 )
 from homeassistant.const import CONF_MAC
-from homeassistant.helpers import device_registry
+from homeassistant.helpers import device_registry, config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 DOMAIN = "neewerlight"
