@@ -8,7 +8,7 @@ from typing import Any, Optional, Tuple
 from .NeewerLight import NeewerLight
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.components.light import (
 	ATTR_BRIGHTNESS,
 	ATTR_RGB_COLOR,
