@@ -7,13 +7,21 @@ from typing import Any, Optional, Tuple
 
 from .NeewerLight import NeewerLight
 
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
+from homeassistant.components.light import (
+	ATTR_BRIGHTNESS,
+	ATTR_RGB_COLOR,
+	ATTR_TRANSITION,
+	ATTR_WHITE,
+	COLOR_MODE_RGB,
+	COLOR_MODE_WHITE,
+	SUPPORT_TRANSITION,
+	LightEntity,
+)
 from homeassistant.const import CONF_MAC
-import homeassistant.helpers.config_validation as cv
-from homeassistant.components.light import (COLOR_MODE_RGB, PLATFORM_SCHEMA,
-											LightEntity, ATTR_RGB_COLOR, ATTR_BRIGHTNESS, COLOR_MODE_WHITE, ATTR_WHITE, SUPPORT_TRANSITION, ATTR_TRANSITION)
-from homeassistant.util.color import (match_max_scale)
 from homeassistant.helpers import device_registry
-from homeassistant.core import callback
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 DOMAIN = "neewerlight"
 
@@ -26,9 +34,10 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 })
 
 
-async def async_setup_entry(hass, config_entry, async_add_devices):
-	instance = hass.data[DOMAIN][config_entry.entry_id]
-	async_add_devices([NeewerLightEntity(instance, config_entry.data["name"], config_entry.entry_id)])
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
+	"""Set up the Neewer Light from a config entry."""
+	instance = hass.data[DOMAIN][entry.entry_id]
+	async_add_entities([NeewerLightEntity(instance, entry.data["name"], entry.entry_id)])
 
 
 class NeewerLightEntity(LightEntity):
