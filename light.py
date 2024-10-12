@@ -1,14 +1,10 @@
 import asyncio
 import logging
-import time
-
-import voluptuous as vol
 from typing import Any, Optional, Tuple
 
-from .NeewerLight import NeewerLight
-
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.core import HomeAssistant
+from homeassistant.core.callback import callback  # Import callback this way
 from homeassistant.components.light import (
 	ATTR_BRIGHTNESS,
 	ATTR_RGB_COLOR,
@@ -20,14 +16,17 @@ from homeassistant.components.light import (
 	LightEntity,
 )
 from homeassistant.const import CONF_MAC
-from homeassistant.helpers import device_registry, config_validation as cv
+from homeassistant.helpers import device_registry
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-DOMAIN = "neewerlight"
+from .const import DOMAIN
+from .NeewerLight import NeewerLight
+
+LOGGER = logging.getLogger(__name__)
 
 #logging.basicConfig(level=logging.DEBUG)
-LOGGER = logging.getLogger("NeewerLightEntity")
-LOGGER.setLevel(logging.WARN)
+#LOGGER = logging.getLogger("NeewerLightEntity")
+#LOGGER.setLevel(logging.WARN)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
 	"""Set up the Neewer Light from a config entry."""
