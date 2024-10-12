@@ -4,7 +4,6 @@ from typing import Any, Optional, Tuple
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.core.callback import callback  # Import callback this way
 from homeassistant.components.light import (
 	ATTR_BRIGHTNESS,
 	ATTR_RGB_COLOR,
@@ -72,14 +71,6 @@ class NeewerLightEntity(LightEntity):
 	@fade_time.setter
 	def fade_time(self, value):
 		self._fade_time = value
-
-	@callback
-	def _schedule_immediate_update(self):
-		self.async_schedule_update_ha_state(True)
-
-	def update(self):
-		"""Fetch update state."""
-		# Nothing to return
 
 	@property
 	# RGB color/brightness based on https://github.com/home-assistant/core/issues/51175
