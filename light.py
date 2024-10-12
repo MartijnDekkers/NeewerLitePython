@@ -18,7 +18,6 @@ from homeassistant.components.light import (
 	COLOR_MODE_WHITE,
 	SUPPORT_TRANSITION,
 	LightEntity,
-	PLATFORM_SCHEMA
 )
 from homeassistant.const import CONF_MAC
 from homeassistant.helpers import device_registry, config_validation as cv
@@ -29,11 +28,6 @@ DOMAIN = "neewerlight"
 #logging.basicConfig(level=logging.DEBUG)
 LOGGER = logging.getLogger("NeewerLightEntity")
 LOGGER.setLevel(logging.WARN)
-
-PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-	vol.Required(CONF_MAC): cv.string
-})
-
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
 	"""Set up the Neewer Light from a config entry."""
